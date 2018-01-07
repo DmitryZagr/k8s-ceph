@@ -185,3 +185,8 @@ pod "ceph-pod1" created
 NAME        READY     STATUS    RESTARTS   AGE
 ceph-pod1   1/1       Running   0          2m
 ```
+
+## Testing env
+| OC                 |      ceph     |  k8s    |
+|:------------------:|:-------------:|:-------:|
+| Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |
