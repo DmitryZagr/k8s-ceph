@@ -12,6 +12,9 @@
  - [Official installation guide](http://docs.ceph.com/docs/master/start/quick-ceph-deploy/)
  - [Ceph cheatsheet](http://rebirther.ru/blog/ceph-spargalka)
 
+## Ceph setting
+ - [Allow dasboard](http://docs.ceph.com/docs/master/mgr/dashboard/)
+
 ## k8s + ceph
 
 #### Working links
@@ -197,6 +200,29 @@ pod "ceph-pod1" created
 # oc get pod
 NAME        READY     STATUS    RESTARTS   AGE
 ceph-pod1   1/1       Running   0          2m
+```
+
+## Ceph 12.2.x
+#### Allow application to use poll
+After creating a pool you must allow application that can access to this pool
+Applications:
+- cephfs
+- rdb
+- rgw
+```bash
+ceph osd pool application enable <app> <pool>
+```
+#### Allow dashboard
+```bash
+# allow dasboard
+ceph mgr module enable dashboard
+
+# ip adn port
+ceph config-key set mgr/dashboard/server_addr $IP
+ceph config-key set mgr/dashboard/server_port $PORT
+
+# reverse proxes
+ceph config-key set mgr/dashboard/url_prefix $PREFIX
 ```
 
 ## Testing env
