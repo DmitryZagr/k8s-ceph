@@ -83,17 +83,23 @@ spec:
 ```
 
 **1**
-    The name of the PV, which is referenced in pod definitions or displayed in various oc volume commands. 
+    The name of the PV, which is referenced in pod definitions or displayed in various oc volume commands.
+
 **2**
-    The amount of storage allocated to this volume. 
+    The amount of storage allocated to this volume.
+
 **3**
-    accessModes are used as labels to match a PV and a PVC. They currently do not define any form of access control. All block storage is defined to be single user (non-shared storage). 
+    accessModes are used as labels to match a PV and a PVC. They currently do not define any form of access control. All block storage is defined to be single user (non-shared storage).
+
 **4**
-    This defines the volume type being used. In this case, the rbd plug-in is defined. 
+    This defines the volume type being used. In this case, the rbd plug-in is defined.
+
 **5**
-    This is an array of Ceph monitor IP addresses and ports. 
+    This is an array of Ceph monitor IP addresses and ports.
+
 **6**
-    This is the Ceph secret, defined above. It is used to create a secure connection from OpenShift Container Platform to the Ceph server. 
+    This is the Ceph secret, defined above. It is used to create a secure connection from OpenShift Container Platform to the Ceph server.
+
 **7**
     This is the file system type mounted on the Ceph RBD block device.
 
@@ -126,9 +132,11 @@ spec:
       storage: 2Gi #2
 ```
 **1**
-    As mentioned above for PVs, the accessModes do not enforce access right, but rather act as labels to match a PV to a PVC. 
+    As mentioned above for PVs, the accessModes do not enforce access right, but rather act as labels to match a PV to a PVC.
+
 **2**
-    This claim will look for PVs offering 2Gi or greater capacity. 
+    This claim will look for PVs offering 2Gi or greater capacity.
+
 
 Save the PVC definition to a file, for example ceph-claim.yaml, and create the PVC: 
 
@@ -164,15 +172,20 @@ spec:
       claimName: ceph-claim #6
 ```
 **1**
-    The name of this pod as displayed by oc get pod. 
+    The name of this pod as displayed by oc get pod.
+
 **2**
-    The image run by this pod. In this case, we are telling busybox to sleep. 
+    The image run by this pod. In this case, we are telling busybox to sleep.
+
 **3** **5**
-    The name of the volume. This name must be the same in both the containers and volumes sections. 
+    The name of the volume. This name must be the same in both the containers and volumes sections.
+
 **4**
-    The mount path as seen in the container. 
+    The mount path as seen in the container.
+
 **6**
-    The PVC that is bound to the Ceph RBD cluster. 
+    The PVC that is bound to the Ceph RBD cluster.
+
 
 Save the pod definition to a file, for example ceph-pod1.yaml, and create the pod: 
 
