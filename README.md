@@ -14,6 +14,8 @@
 
 ## Ceph setting
  - [Allow dasboard](http://docs.ceph.com/docs/master/mgr/dashboard/)
+ - [add osds with ceph-deploy](http://docs.ceph.com/docs/master/rados/deployment/ceph-deploy-osd/)
+ - [deploy bluestore with ceph-disk](https://www.virtualtothecore.com/en/how-to-migrate-ceph-storage-volumes-from-filestore-to-bluestore/)
 
 ## k8s + ceph
 
