@@ -14,8 +14,13 @@
 
 ## Ceph setting
  - [Allow dasboard](http://docs.ceph.com/docs/master/mgr/dashboard/)
- - [add osds with ceph-deploy](http://docs.ceph.com/docs/master/rados/deployment/ceph-deploy-osd/)
- - [deploy bluestore with ceph-disk](https://www.virtualtothecore.com/en/how-to-migrate-ceph-storage-volumes-from-filestore-to-bluestore/)
+ - [Add osds with ceph-deploy](http://docs.ceph.com/docs/master/rados/deployment/ceph-deploy-osd/)
+ - [Deploy bluestore with ceph-disk(deprecated util)](https://www.virtualtothecore.com/en/how-to-migrate-ceph-storage-volumes-from-filestore-to-bluestore/)
+ - [Prepare OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/prepare/)
+ - [Activate OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/activate/)
+
+## LVM
+ - [info about lvm](https://habrahabr.ru/post/67283/)
 
 ## k8s + ceph
 
@@ -226,6 +231,48 @@ ceph config-key set mgr/dashboard/server_port $PORT
 # reverse proxes
 ceph config-key set mgr/dashboard/url_prefix $PREFIX
 ```
+
+#### Deploy Ceph's OSDs on disk partition with ceph-volume(for 12.2.x +)
+```bash
+# install lvm packages
+apt-get install lvm2
+
+# copy ceph's client.bootstrap-osd key from file ceph.bootstrap-osd.keyring to /var/lib/ceph/bootstrap-osd/ceph.keyring
+# For example:
+pwd
+#output:
+#    /home/zagrebaev/my-cluster
+cp ceph.bootstrap-osd.keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
+```
+For example, we have unused /dev/sdd device. Let's create OSDs on /dev/sdd2.
+Firstly, we need to parted this device:
+[Prepare. Official doc](http://docs.ceph.com/docs/master/ceph-volume/lvm/prepare/)
+```bash
+# create GPT partition table on /dev/sdd device
+parted --script /dev/sdd mklabel gpt
+
+# create /dev/sdd1
+parted --script /dev/sdd mkpart primary 1 20%
+
+# create /dev/sdd2
+parted --script /dev/sdd mkpart primary 20% 100%
+
+#prepare osd
+ceph-volume lvm prepare --bluestore --data /dev/sdd2
+```
+
+Secondly, we need to activate OSD. For example, the above command created osd.2
+[Activate. Official doc](http://docs.ceph.com/docs/master/ceph-volume/lvm/activate/)
+```bash
+# get  OSD uuid from file osd_fsid
+cat /var/lib/ceph/osd/ceph-2/fsid
+# Example output:
+    7e6a5fdd-e0d4-4b4b-b21b-0b72d41177c1
+
+# Activate osd.2. Coomand: ceph-volume lvm activate --bluestore $OSD_ID  $OSD_UIID
+ceph-volume lvm activate --bluestore 2 7e6a5fdd-e0d4-4b4b-b21b-0b72d41177c1
+```
+We created OSD!
 
 ## Testing env
 | OC                 |      ceph     |  k8s    |
