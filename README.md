@@ -210,6 +210,11 @@ ceph-pod1   1/1       Running   0          2m
 ```
 
 ## Ceph 12.2.x
+
+#### Constraints
+ - Critical
+   - Ceph's user can't be named with username **ceph**
+
 #### Allow application to use poll
 After creating a pool you must allow application that can access to this pool
 Applications:
