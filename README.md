@@ -22,6 +22,22 @@
 ## LVM
  - [info about lvm](https://habrahabr.ru/post/67283/)
 
+## NTP
+
+#### Install
+```bash
+sudo apt-get update
+sudo apt-get install ntpdate ntp
+```
+
+#### Configuration
+- [conf](https://www.thegeekstuff.com/2014/06/linux-ntp-server-client/)
+
+#### extra commands
+```bash
+ntpdate -u <host> #The ntpdate command can be used to set the local date and time by polling the NTP server. Typically, you’ll have to do this only one time.
+```
+
 ## k8s + ceph
 
 #### Working links
