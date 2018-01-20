@@ -18,6 +18,7 @@
  - [Deploy bluestore with ceph-disk(deprecated util)](https://www.virtualtothecore.com/en/how-to-migrate-ceph-storage-volumes-from-filestore-to-bluestore/)
  - [Prepare OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/prepare/)
  - [Activate OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/activate/)
+ - [Create and mount CephFS](http://docs.ceph.com/docs/master/start/quick-cephfs/#create-a-filesystem)
 
 ## LVM
  - [info about lvm](https://habrahabr.ru/post/67283/)
@@ -300,3 +301,4 @@ We created OSD!
 |:------------------:|:-------------:|:-------:|
 | Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |
