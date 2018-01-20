@@ -277,6 +277,11 @@ Used as the mounted root, rather than the full Ceph tree. If not provided, defau
 
 Optional param: **secretFile**: The path to the keyring file. If not provided, default /etc/ceph/user.secret is used.
 
+Now you can see pod with name **cephfs-rw**
+```bash
+kubectl get pods
+```
+
 ## Ceph 12.2.x
 
 #### Constraints
