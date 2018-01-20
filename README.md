@@ -13,9 +13,8 @@
  - [Ceph cheatsheet](http://rebirther.ru/blog/ceph-spargalka)
 
 ## Ceph setting
- - [Allow dasboard](http://docs.ceph.com/docs/master/mgr/dashboard/)
- - [Add osds with ceph-deploy](http://docs.ceph.com/docs/master/rados/deployment/ceph-deploy-osd/)
- - [Deploy bluestore with ceph-disk(deprecated util)](https://www.virtualtothecore.com/en/how-to-migrate-ceph-storage-volumes-from-filestore-to-bluestore/)
+ - [Allow ceph's dasboard](http://docs.ceph.com/docs/master/mgr/dashboard/)
+ - [Add osds with ceph-deploy](http://docs.ceph.com/docs/master/rados/deployment/ceph-deploy-osd/) Warning! **Whole disk is used**
  - [Prepare OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/prepare/)
  - [Activate OSDs manually with ceph-volume](http://docs.ceph.com/docs/master/ceph-volume/lvm/activate/)
  - [Create and mount CephFS](http://docs.ceph.com/docs/master/start/quick-cephfs/#create-a-filesystem)
