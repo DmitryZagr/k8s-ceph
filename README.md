@@ -33,13 +33,13 @@ sudo apt-get install ntpdate ntp
 #### Configuration
 - [conf](https://www.thegeekstuff.com/2014/06/linux-ntp-server-client/)
 
-#### extra commands
+#### Extra commands
 ```bash
 ntpdate -u <host> #The ntpdate command can be used to set the local date and time by polling the NTP server. Typically, you’ll have to do this only one time.
 ```
 
 ## k8s + ceph
-
+### RBD storage
 #### Working links
 
  - [bug zilla](https://bugzilla.redhat.com/show_bug.cgi?id=1460275) 
@@ -225,6 +225,58 @@ NAME        READY     STATUS    RESTARTS   AGE
 ceph-pod1   1/1       Running   0          2m
 ```
 
+### CephFS
+
+Before you begin you must mount CephFS on host.
+
+[k8s official example](https://github.com/kubernetes/examples/tree/master/staging/volumes/cephfs/)
+
+```yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cephfs2
+spec:
+  containers:
+  - name: cephfs-rw
+    image: kubernetes/pause
+    volumeMounts:
+    - mountPath: "/mnt/cephfs" #1
+      name: cephfs
+  volumes:
+  - name: cephfs
+    cephfs:
+      monitors: #2
+      - 10.16.154.78:6789
+      - 10.16.154.82:6789
+      - 10.16.154.83:6789
+      user: admin #3
+      secretRef: #4
+        name: ceph-secret
+      readOnly: true #5
+      path: "/" #6
+```
+
+**1**
+Path inside container
+
+**2**
+Array of Ceph monitors.
+
+**3**
+The RADOS user name. If not provided, default admin is used.
+
+**4**
+Reference to Ceph authentication secrets. If provided, secret overrides secretFile.
+
+**5**
+Whether the filesystem is used as readOnly.
+
+**6**
+Used as the mounted root, rather than the full Ceph tree. If not provided, default / is used.
+
+Optional param: **secretFile**: The path to the keyring file. If not provided, default /etc/ceph/user.secret is used.
+
 ## Ceph 12.2.x
 
 #### Constraints
@@ -267,6 +319,7 @@ cp ceph.bootstrap-osd.keyring /var/lib/ceph/bootstrap-osd/ceph.keyring
 ```
 For example, we have unused /dev/sdd device. Let's create OSDs on /dev/sdd2.
 Firstly, we need to parted this device:
+
 [Prepare. Official doc](http://docs.ceph.com/docs/master/ceph-volume/lvm/prepare/)
 ```bash
 # create GPT partition table on /dev/sdd device
@@ -283,6 +336,7 @@ ceph-volume lvm prepare --bluestore --data /dev/sdd2
 ```
 
 Secondly, we need to activate OSD. For example, the above command created osd.2
+
 [Activate. Official doc](http://docs.ceph.com/docs/master/ceph-volume/lvm/activate/)
 ```bash
 # get  OSD uuid from file osd_fsid
