@@ -227,8 +227,6 @@ ceph-pod1   1/1       Running   0          2m
 
 ### CephFS
 
-Before you begin you must mount CephFS on host.
-
 [k8s official example](https://github.com/kubernetes/examples/tree/master/staging/volumes/cephfs/)
 
 ```yaml
