@@ -38,6 +38,8 @@ sudo apt-get install ntpdate ntp
 ntpdate -u <host> #The ntpdate command can be used to set the local date and time by polling the NTP server. Typically, you’ll have to do this only one time.
 ```
 
+****
+
 ## k8s + ceph
 ### RBD storage
 #### Working links
@@ -280,6 +282,70 @@ Now you can see pod with name **cephfs-rw**
 kubectl get pods
 ```
 
+#### CephFS + StatefulSet(k8s API)
+
+[StatefulSet k8s example](https://kubernetes.io/docs/tasks/run-application/run-replicated-stateful-application/)
+
+##### Prerequisite
+You must create storage class from this [kubernetes/examples/staging/volumes/cephfs](https://github.com/kubernetes-incubator/external-storage/tree/master/ceph/cephfs) repo. Use rbac [deployment](https://github.com/kubernetes-incubator/external-storage/tree/master/ceph/cephfs/deploy/rbac) for k8s >= 1.9. Ensure that all components are in the **same namespace**.
+
+#####  Constraints
+ - Critical
+   - Ensure that all components are in the **same namespace**
+
+##### StatefulSet Example
+
+For example we use namespace **cephfs**
+
+```yaml
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql
+  namespace: cephfs #1
+spec:
+  selector:
+    matchLabels:
+      app: mysql
+  serviceName: mysql
+  replicas: 2 #2
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: mysql
+        image: busybox
+        command: ["sleep", "60000"]
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/busybox
+  volumeClaimTemplates: #3
+  - metadata:
+      name: data
+    spec:
+      storageClassName: cephfs #4
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 1Gi
+```
+
+**1**
+Use the same namespace that you use in **Prerequisite** section.
+
+**2**
+Two instances of service will be created.
+
+**3**
+In this section you can see dynamic creating of ceph's volumes for k8s containers.
+
+**4**
+StorageClass was created in **Prerequisite** section.
+
+****
+
 ## Ceph 12.2.x
 
 #### Constraints
@@ -351,6 +417,8 @@ cat /var/lib/ceph/osd/ceph-2/fsid
 ceph-volume lvm activate --bluestore 2 7e6a5fdd-e0d4-4b4b-b21b-0b72d41177c1
 ```
 We created OSD!
+
+****
 
 ## Testing env
 | OC                 |      ceph     |  k8s    |
