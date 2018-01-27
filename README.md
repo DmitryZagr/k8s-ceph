@@ -2,7 +2,7 @@
 
 # Setup
 
-## Install k8s with calico network
+## Install k8s with flannel network
  - [Setup kubeadm](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
  - [Setup k8s](https://kubernetes.io/docs/setup/independent/create-cluster-kubeadm/)
 
@@ -421,8 +421,16 @@ We created OSD!
 ****
 
 ## Testing env
-| OC                 |      ceph     |  k8s    |
-|:------------------:|:-------------:|:-------:|
-| Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |
-| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |
-| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |
+
+### Single node
+
+| OC                 |      ceph     |  k8s    |k8s pod network|
+|:------------------:|:-------------:|:-------:|:-------------:|
+| Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |     Calico    |
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |     Calico    |
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |     Calico    |
+
+### Multi node
+| OC                 |      ceph     |  k8s    |k8s pod network |
+|:------------------:|:-------------:|:-------:|:--------------:|
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |Flannel v.0.10.0|
