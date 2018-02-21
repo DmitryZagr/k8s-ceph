@@ -420,17 +420,26 @@ We created OSD!
 
 ****
 
+## Extra Info
+
+### Ubuntu 16.04
+ [update kernel to latest version](https://askubuntu.com/questions/944842/kernel-4-10-in-ubuntu-16-04-3-update/944955)
+ ```bash
+sudo apt install --install-recommends linux-image-generic-hwe-16.04
+```
+****
+
 ## Testing env
 
 ### Single node
 
-| OC                 |      ceph     |  k8s    |k8s pod network|
-|:------------------:|:-------------:|:-------:|:-------------:|
-| Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |     Calico    |
-| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |     Calico    |
-| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |     Calico    |
+| OC                 |      ceph     |  k8s    |k8s pod network|  kernel version |
+|:------------------:|:-------------:|:-------:|:-------------:|:---------------:|
+| Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |     Calico    |                 |
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |     Calico    |4.13.0-32-generic|
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |     Calico    |4.13.0-32-generic|
 
 ### Multi node
-| OC                 |      ceph     |  k8s    |k8s pod network |
-|:------------------:|:-------------:|:-------:|:--------------:|
-| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |Flannel v.0.10.0|
+| OC                 |      ceph     |  k8s    |k8s pod network |  kernel version |
+|:------------------:|:-------------:|:-------:|:--------------:|:---------------:|
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |Flannel v.0.10.0|4.13.0-32-generic|
