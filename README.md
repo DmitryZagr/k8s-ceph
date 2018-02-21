@@ -420,6 +420,28 @@ We created OSD!
 
 ****
 
+## Monitoring cluster
+
+Deploy [monitoring server](https://github.com/kubernetes-incubator/metrics-server/blob/master/README.md)
+ ```bash
+git clone https://github.com/kubernetes-incubator/metrics-server/blob/master/README.md
+cd kubernetes-incubator
+kubectl create -f deploy/
+```
+
+Deploy [Heapster](https://github.com/kubernetes/heapster)
+**Note:**
+ - Check manually latest images in yaml files.
+ - Check file [deploy/kube-config/influxdb/grafana.yaml](https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/grafana.yaml) to access grafana dashboard.
+ ```bash
+git clone https://github.com/kubernetes/heapster.git
+cd heapster
+kubectl create -f deploy/kube-config/rbac/
+kubectl create -f deploy/kube-config/influxdb/
+```
+
+****
+
 ## Extra Info
 
 ### Ubuntu 16.04
@@ -438,8 +460,10 @@ sudo apt install --install-recommends linux-image-generic-hwe-16.04
 | Ubuntu 16.04 LTS   |     10.2.10   | 1.9.0   |     Calico    |                 |
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.1   |     Calico    |4.13.0-32-generic|
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |     Calico    |4.13.0-32-generic|
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.3   |     Calico    |4.13.0-32-generic|
 
 ### Multi node
 | OC                 |      ceph     |  k8s    |k8s pod network |  kernel version |
 |:------------------:|:-------------:|:-------:|:--------------:|:---------------:|
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |Flannel v.0.10.0|4.13.0-32-generic|
+| Ubuntu 16.04 LTS   |     12.2.2    | 1.9.3   |Flannel v.0.10.0|4.13.0-32-generic|
