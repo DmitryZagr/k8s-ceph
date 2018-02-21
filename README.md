@@ -430,6 +430,7 @@ kubectl create -f deploy/
 ```
 
 Deploy [Heapster](https://github.com/kubernetes/heapster)
+
 **Note:**
  - Check manually latest images in yaml files.
  - Check file [deploy/kube-config/influxdb/grafana.yaml](https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/grafana.yaml) to access grafana dashboard.
