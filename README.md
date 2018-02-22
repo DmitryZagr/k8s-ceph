@@ -424,7 +424,7 @@ We created OSD!
 
 Deploy [monitoring server](https://github.com/kubernetes-incubator/metrics-server/blob/master/README.md)
  ```bash
-git clone https://github.com/kubernetes-incubator/metrics-server/blob/master/README.md
+git clone https://github.com/kubernetes-incubator/metrics-server.git
 cd kubernetes-incubator
 kubectl create -f deploy/
 ```
@@ -433,10 +433,11 @@ Deploy [Heapster](https://github.com/kubernetes/heapster)
 
 **Note:**
  - Check manually latest images in yaml files.
- - Check file [deploy/kube-config/influxdb/grafana.yaml](https://github.com/kubernetes/heapster/blob/master/deploy/kube-config/influxdb/grafana.yaml) to access grafana dashboard.
+ - Check file [deploy/kube-config/influxdb/grafana.yaml](https://github.com/DmitryZagr/heapster/blob/cephfs_storage/deploy/kube-config/influxdb/grafana.yaml) to access grafana dashboard.You can access grafana dashboard on 3000 host port.
  ```bash
-git clone https://github.com/kubernetes/heapster.git
+git clone https://github.com/DmitryZagr/heapster.git
 cd heapster
+git checkout cephfs_storage
 kubectl create -f deploy/kube-config/rbac/
 kubectl create -f deploy/kube-config/influxdb/
 ```
