@@ -425,7 +425,7 @@ We created OSD!
 Deploy [monitoring server](https://github.com/kubernetes-incubator/metrics-server/blob/master/README.md)
  ```bash
 git clone https://github.com/kubernetes-incubator/metrics-server.git
-cd kubernetes-incubator
+cd metrics-server
 kubectl create -f deploy/
 ```
 
