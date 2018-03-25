@@ -469,3 +469,4 @@ sudo apt install --install-recommends linux-image-generic-hwe-16.04
 |:------------------:|:-------------:|:-------:|:--------------:|:---------------:|
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.2   |Flannel v.0.10.0|4.13.0-32-generic|
 | Ubuntu 16.04 LTS   |     12.2.2    | 1.9.3   |Flannel v.0.10.0|4.13.0-32-generic|
+| Ubuntu 16.04 LTS   |     12.2.4    | 1.9.6   |Flannel v.0.10.0|4.13.0-37-generic|
