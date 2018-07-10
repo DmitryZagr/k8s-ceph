@@ -447,10 +447,28 @@ kubectl create -f deploy/kube-config/influxdb/
 ## Extra Info
 
 ### Ubuntu 16.04
- [update kernel to latest version](https://askubuntu.com/questions/944842/kernel-4-10-in-ubuntu-16-04-3-update/944955)
+ [**Update kernel to latest version**](https://askubuntu.com/questions/944842/kernel-4-10-in-ubuntu-16-04-3-update/944955)
  ```bash
 sudo apt install --install-recommends linux-image-generic-hwe-16.04
 ```
+
+### Docker
+
+[**How do I change the Docker image installation directory?**](https://forums.docker.com/t/how-do-i-change-the-docker-image-installation-directory/1169)
+
+Using a symlink is another method to change image storage.
+
+Caution - These steps depend on your current ```/var/lib/docker``` being an actual directory (not a symlink to another location).
+
+Stop docker: ```service docker stop```. Verify no docker process is running ```ps faux```
+Double check docker really isn’t running. Take a look at the current docker directory: ```ls /var/lib/docker/```
+2b) Make a backup - ```tar -zcC /var/lib docker > /mnt/pd0/var_lib_docker-backup-$(date +%s).tar.gz```
+Move the ```/var/lib/docker``` directory to your new partition: ```mv /var/lib/docker /mnt/pd0/docker```
+Make a symlink:  ``` ln -s /mnt/pd0/docker /var/lib/docker ```
+Take a peek at the directory structure to make sure it looks like it did before the mv: ```ls /var/lib/docker/``` (note the trailing slash to resolve the symlink)
+Start docker back up ```service docker start```
+restart your containers
+
 ****
 
 ## Testing env
